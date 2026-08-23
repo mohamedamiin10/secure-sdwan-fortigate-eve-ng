@@ -22,45 +22,13 @@ The implemented architecture is a **hub-and-spoke topology with one hub and two 
 - **BGP AS 65001** for dynamic routing
 - **ADVPN** for direct branch-to-branch shortcuts
 
-### Important Topology Model
+### Actual Topology Diagram
 
-```text
-                         ┌─────────────────────────┐
-                         │       HQ SITE (HUB)     │
-                         │                         │
-                         │       ┌──────────┐      │
-                         │       │  HQ-FW   │      │
-                         │       │ FortiGate│      │
-                         │       └────┬─┬───┘      │
-                         │          WAN1 WAN2      │
-                         └────────────┼─┼───────────┘
-                                      │ │
-                              ┌───────┴─┴───────┐
-                              │  INTERNET / ISP  │
-                              │     UNDERLAY     │
-                              └───────┬─┬────────┘
-                                      │ │
-                    ┌─────────────────┘ └─────────────────┐
-                    │                                     │
-             ┌──────┴──────┐                       ┌──────┴──────┐
-             │   BRANCH 1  │                       │   BRANCH 2  │
-             │    SPOKE    │                       │    SPOKE    │
-             │             │                       │             │
-             │  ┌───────┐  │                       │  ┌───────┐  │
-             │  │BRNCH-1│  │                       │  │BRNCH-2│  │
-             │  │FortiG. │  │                       │  │FortiG. │  │
-             │  └───┬─┬──┘  │                       │  └───┬─┬──┘  │
-             │   WAN1 WAN2  │                       │   WAN1 WAN2  │
-             └───────────────┘                       └───────────────┘
+![Secure SD-WAN Banking Topology](docs/topology/banking-topology.webp)
 
-          All three FortiGate sites have TWO WAN links.
-          HQ-FW is the hub; BRNCH-1 and BRNCH-2 are the two spokes.
+**Figure 1 — Implemented Secure SD-WAN Banking Topology (HQ Hub + Branch 1 Spoke + Branch 2 Spoke).**
 
-          IPsec / SD-WAN overlay runs over the Internet underlay.
-          ADVPN can establish direct Branch 1 ↔ Branch 2 shortcuts.
-```
-
-This is the actual architecture represented by the thesis topology. The two WAN connections are present at **HQ, Branch 1, and Branch 2**; they are not two separate spokes.
+The diagram above is the actual topology used for the thesis. **HQ-FW is the hub, BRNCH-1 is Spoke 1, and BRNCH-2 is Spoke 2. Each FortiGate site has two WAN connections to the simulated Internet/ISP underlay.**
 
 ---
 
@@ -213,25 +181,6 @@ SD-WAN operates across the **two WAN links available at each FortiGate site**.
 
 The implementation evaluates WAN path health and availability and can react to WAN degradation or failure.
 
-The important distinction is:
-
-```text
-             HUB + 2 SPOKES
-
-                 HQ-FW
-                /     \
-             WAN1     WAN2
-               \       /
-                INTERNET
-               /       \
-            WAN1       WAN2
-             /           \
-        BRNCH-1         BRNCH-2
-        Spoke 1          Spoke 2
-         /  \             /  \
-      WAN1 WAN2        WAN1 WAN2
-```
-
 **Each of the three FortiGates has two WAN links.**
 
 ---
@@ -278,6 +227,7 @@ secure-sdwan-fortigate-eve-ng/
 ├── README.md
 ├── docs/
 │   ├── topology/
+│   │   └── banking-topology.webp
 │   ├── architecture/
 │   ├── methodology/
 │   └── results/
