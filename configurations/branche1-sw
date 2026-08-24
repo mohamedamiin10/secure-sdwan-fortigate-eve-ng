@@ -1,0 +1,154 @@
+
+!
+! Last configuration change at 16:11:57 UTC Sun May 31 2026
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname BCH1-SW
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+!
+!
+!
+!
+no ip routing
+!
+!
+!
+no ip domain-lookup
+no ip cef
+no ipv6 cef
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface GigabitEthernet0/0
+ description TRUNK_TO_BRANCH1_FORTIGATE_PORT4
+ switchport trunk allowed vlan 110,120
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ media-type rj45
+ negotiation auto
+!
+interface GigabitEthernet0/1
+ description TELLER4
+ switchport access vlan 110
+ switchport mode access
+ media-type rj45
+ negotiation auto
+ spanning-tree portfast edge
+!
+interface GigabitEthernet0/2
+ description TELLER5
+ switchport access vlan 110
+ switchport mode access
+ media-type rj45
+ negotiation auto
+ spanning-tree portfast edge
+!
+interface GigabitEthernet0/3
+ description SUPERVISOR
+ switchport access vlan 120
+ switchport mode access
+ media-type rj45
+ negotiation auto
+ spanning-tree portfast edge
+!
+interface GigabitEthernet1/0
+ media-type rj45
+ negotiation auto
+!
+interface GigabitEthernet1/1
+ media-type rj45
+ negotiation auto
+!
+interface GigabitEthernet1/2
+ media-type rj45
+ negotiation auto
+!
+interface GigabitEthernet1/3
+ media-type rj45
+ negotiation auto
+!
+interface Vlan120
+ description MGMT_BRANCH1_SUPERVISOR
+ ip address 10.11.120.2 255.255.255.0
+ no ip route-cache
+!
+ip default-gateway 10.11.120.1
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+snmp-server community BCH1-SW RO
+snmp-server location Branch1
+snmp-server contact admin
+!
+control-plane
+!
+banner exec 
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************
+banner incoming 
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************
+banner login 
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************
+!
+line con 0
+line aux 0
+line vty 0 4
+!
+!
+end

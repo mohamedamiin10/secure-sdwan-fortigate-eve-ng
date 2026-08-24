@@ -1,0 +1,211 @@
+
+!
+! Last configuration change at 16:17:28 UTC Sun May 31 2026
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname ISP
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+!
+!
+!
+!
+!
+!
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+!
+!
+!
+redundancy
+!
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ ip address 2.2.2.2 255.255.255.255
+!
+interface GigabitEthernet0/0
+ description TO-HQ-FW-ISP1
+ ip address 172.16.10.1 255.255.255.252
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/1
+ description TO-BRANCH2-FW-ISP2
+ ip address 172.16.20.9 255.255.255.252
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/2
+ description TO-BRANCH1-FW-ISP2
+ ip address 172.16.20.5 255.255.255.252
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/3
+ description TO-HQ-FW-ISP2
+ ip address 172.16.20.1 255.255.255.252
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/4
+ description TO-BRANCH2-FW-ISP1
+ ip address 172.16.10.9 255.255.255.252
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/5
+ description TO-BRANCH1-FW-ISP1
+ ip address 172.16.10.5 255.255.255.252
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/6
+ description TO-INTERNET-CLOUD_OPTIONAL
+ no ip address
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/7
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/8
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+ media-type rj45
+!
+interface GigabitEthernet0/9
+ no ip address
+ shutdown
+ duplex auto
+ speed auto
+ media-type rj45
+!
+router ospf 1
+ network 1.1.0.2 0.0.0.0 area 0
+ network 2.2.2.2 0.0.0.0 area 0
+!
+ip forward-protocol nd
+!
+!
+no ip http server
+no ip http secure-server
+ip route 10.10.140.0 255.255.255.0 172.16.10.2
+!
+!
+snmp-server community ISP RO
+snmp-server location ISP-Core
+snmp-server contact admin
+!
+!
+control-plane
+!
+banner exec 
+**************************************************************************
+* IOSv - Cisco Systems Confidential                                      *
+*                                                                        *
+* This software is provided as is without warranty for internal          *
+* development and testing purposes only under the terms of the Cisco     *
+* Early Field Trial agreement.  Under no circumstances may this software *
+* be used for production purposes or deployed in a production            *
+* environment.                                                           *
+*                                                                        *
+* By using the software, you agree to abide by the terms and conditions  *
+* of the Cisco Early Field Trial Agreement as well as the terms and      *
+* conditions of the Cisco End User License Agreement at                  *
+* http://www.cisco.com/go/eula                                           *
+*                                                                        *
+* Unauthorized use or distribution of this software is expressly         *
+* Prohibited.                                                            *
+**************************************************************************
+banner incoming 
+**************************************************************************
+* IOSv - Cisco Systems Confidential                                      *
+*                                                                        *
+* This software is provided as is without warranty for internal          *
+* development and testing purposes only under the terms of the Cisco     *
+* Early Field Trial agreement.  Under no circumstances may this software *
+* be used for production purposes or deployed in a production            *
+* environment.                                                           *
+*                                                                        *
+* By using the software, you agree to abide by the terms and conditions  *
+* of the Cisco Early Field Trial Agreement as well as the terms and      *
+* conditions of the Cisco End User License Agreement at                  *
+* http://www.cisco.com/go/eula                                           *
+*                                                                        *
+* Unauthorized use or distribution of this software is expressly         *
+* Prohibited.                                                            *
+**************************************************************************
+banner login 
+**************************************************************************
+* IOSv - Cisco Systems Confidential                                      *
+*                                                                        *
+* This software is provided as is without warranty for internal          *
+* development and testing purposes only under the terms of the Cisco     *
+* Early Field Trial agreement.  Under no circumstances may this software *
+* be used for production purposes or deployed in a production            *
+* environment.                                                           *
+*                                                                        *
+* By using the software, you agree to abide by the terms and conditions  *
+* of the Cisco Early Field Trial Agreement as well as the terms and      *
+* conditions of the Cisco End User License Agreement at                  *
+* http://www.cisco.com/go/eula                                           *
+*                                                                        *
+* Unauthorized use or distribution of this software is expressly         *
+* Prohibited.                                                            *
+**************************************************************************
+!
+line con 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login
+ transport input none
+!
+no scheduler allocate
+!
+end
